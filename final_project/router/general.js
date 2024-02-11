@@ -27,20 +27,19 @@ public_users.post("/register", (req,res) => {
 // Get the book list available in the shop
 public_users.get('/',function (req, res) {        
     res.send(JSON.stringify( books,null,4));
-    //probaremos sin usar el "return" ---> return
 });*/
 
 public_users.get('/', function(req, res) {
     // Simular una operación asincrónica, como una llamada a una base de datos
     new Promise((resolve, reject) => {
-      // Simular un proceso asincrónico, como si estuvieras obteniendo los datos de una base de datos
+      // Simular un proceso asincrónico
       process.nextTick(() => resolve(books));
     })
     .then(booksList => {
       res.json(booksList); // Envía la lista de libros como respuesta
     })
     .catch(error => {
-      res.status(500).json({ message: "Error al recuperar los libros" });
+      res.status(500).json({ message: "Error retrieving books" });
     });
   });
 
@@ -76,26 +75,6 @@ public_users.get('/isbn/:isbn', function (req, res) {
 });
 
 
-
-/*const authorName = req.params.author;
-  let booksByAuthor = [];
-  
-  for (let isbn in books) {
-      if (books.hasOwnProperty(isbn)) {
-          let book = books[isbn];
-          if (book.author === authorName) {
-              // Agrega el libro al array si el autor coincide
-              booksByAuthor.push(book);
-          }
-      }
-  }
-
-  // Si no se encuentran libros del autor, devuelve un mensaje de error
-  if (booksByAuthor.length > 0) {
-      res.json(booksByAuthor);
-  } else {
-      res.status(404).send('No books found by author ' + authorName);
-  } */
 
 
 //TASK 12
